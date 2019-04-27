@@ -420,7 +420,7 @@ game.createClass('GraphicsShape', {
                     i++;
                 }
                 else if (x === undefined) {
-                    context.bezierCurveTo﻿(point[0], point[1], point[2], point[3], point[4], point[5]);
+                    context.bezierCurveTo﻿(point[0] * game.scale, point[1] * game.scale, point[2] * game.scale, point[3] * game.scale, point[4] * game.scale, point[5] * game.scale);
                     continue;
                 }
                 context.lineTo(x * game.scale, y * game.scale);
