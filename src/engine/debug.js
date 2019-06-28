@@ -137,7 +137,7 @@ game.createClass('Debug', {
                 this.super(context);
                 game.debug._draws++;
             },
-            
+
             _renderCanvas: function(context) {
                 if (game.scene && game.scene.stage === this) return;
                 if (game.Debug.showBounds) game.debug._drawBounds(this);
@@ -160,7 +160,7 @@ game.createClass('Debug', {
                     var height = texture.height * game.scale;
 
                     if (!width && !height) return;
-                    
+
                     context.globalCompositeOperation = 'source-over';
                     context.globalAlpha = game.Debug.boundAlpha;
                     context.lineWidth = game.Debug.boundLineWidth;
@@ -286,7 +286,7 @@ game.createClass('Debug', {
             context.stroke();
         }
     },
-    
+
     /**
         @method _drawBounds
         @param {Container} container
@@ -295,7 +295,7 @@ game.createClass('Debug', {
     _drawBounds: function(container) {
         var context = game.renderer.context;
         var bounds = container._getBounds();
-        
+
         context.globalCompositeOperation = 'source-over';
         context.setTransform(1, 0, 0, 1, 0, 0);
         context.globalAlpha = game.Debug.boundAlpha;
@@ -375,8 +375,8 @@ game.createClass('Debug', {
             var scaleY = Math.abs(wt.d / container._cosCache);
             var aPercX = (container.anchor.x / container.width) || 0;
             var aPercY = (container.anchor.y / container.height) || 0;
-            var hx = tx + hitArea.x * scaleX;
-            var hy = ty + hitArea.y * scaleY;
+            var hx = (tx + hitArea.x * scaleX) * game.scale;
+            var hy = (ty + hitArea.y * scaleY) * game.scale;
             hx += bounds.width * scaleX * aPercX;
             hy += bounds.height * scaleY * aPercY;
             if (hitArea.radius) {
@@ -458,7 +458,7 @@ game.createClass('Debug', {
             x += offset.x;
             y += offset.y;
         }
-        
+
         context.globalCompositeOperation = 'source-over';
         context.setTransform(wt.a, wt.b, wt.c, wt.d, x, y);
         context.globalAlpha = game.Debug.spriteAlpha;
