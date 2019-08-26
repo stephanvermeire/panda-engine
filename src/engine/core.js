@@ -564,7 +564,7 @@ var game = {
         if (this.renderer) this.input = new this.Input(this.renderer.canvas);
 
         // Optional classes
-        if (this.renderer && this.Keyboard && !this.keyboard) this.keyboard = new this.Keyboard();
+        if (this.renderer && this.Keyboard) this.keyboard = new this.Keyboard();
         if (this.renderer && this.Audio && !this.audio) this.audio = new this.Audio();
         if (this.Pool && !this.pool) this.pool = new this.Pool();
         if (this.config.id && !this.Storage.id) this.Storage.id = this.config.id;
