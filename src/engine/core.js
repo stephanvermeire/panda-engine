@@ -379,7 +379,7 @@ var game = {
         for (i in obj) {
             keys.push(i);
         }
-        
+
         keys.sort(compare);
         for (i = 0; i < keys.length; i++) {
             result[keys[i]] = obj[keys[i]];
@@ -428,7 +428,7 @@ var game = {
         if (this.modules[name] && this.modules[name].body) throw 'Module ' + name + ' is already defined';
 
         this._current = { name: name, requires: [], loaded: false, classes: [] };
-        
+
         if (name.indexOf('game.') === 0) {
             this._gameModuleDefined = true;
             this._current.requires.push('engine.core');
@@ -558,14 +558,14 @@ var game = {
     **/
     start: function() {
         if (this._moduleQueue.length > 0 || this.isStarted) return;
-        
+
         // Required classes
         this.system = new this.System();
         if (this.renderer) this.input = new this.Input(this.renderer.canvas);
 
         // Optional classes
         if (this.renderer && this.Keyboard) this.keyboard = new this.Keyboard();
-        if (this.renderer && this.Audio) this.audio = new this.Audio();
+        if (this.renderer && this.Audio && !this.audio) this.audio = new this.Audio();
         if (this.Pool) this.pool = new this.Pool();
         if (this.config.id && !this.Storage.id) this.Storage.id = this.config.id;
         if (this.Storage && this.Storage.id) this.storage = new this.Storage();
@@ -588,11 +588,11 @@ var game = {
             ctx.drawImage(this._logoSource, 0, 0, canvas.width, canvas.height / 2);
             this.logo = new game.Texture(new game.BaseTexture(canvas));
         }
-        
+
         this.isStarted = true;
         if (!this.system._rotateScreenVisible) this.onStart();
     },
-    
+
     /**
         Stop engine completely.
         @method start
@@ -635,7 +635,7 @@ var game = {
                     break;
                 }
             }
-            
+
             // Add viewport meta, if none found
             if (!viewportFound) {
                 var viewport = document.createElement('meta');
@@ -759,7 +759,7 @@ var game = {
         this.device.iOS10 = (this.device.iOS && /OS 10/i.test(navigator.userAgent));
         this.device.iOS11 = (this.device.iOS && /OS 11/i.test(navigator.userAgent));
         this.device.WKWebView = (this.device.iOS && window.webkit && window.webkit.messageHandlers);
-        
+
         // Android
         this.device.android = /android/i.test(navigator.userAgent);
         this.device.android2 = /android 2/i.test(navigator.userAgent);
@@ -770,7 +770,7 @@ var game = {
         this.device.android6 = /Android 6/i.test(navigator.userAgent);
         this.device.android7 = /Android 7/i.test(navigator.userAgent);
         this.device.android8 = /Android 8/i.test(navigator.userAgent);
-        
+
         // Microsoft
         this.device.ie9 = /MSIE 9/i.test(navigator.userAgent);
         this.device.ie10 = /MSIE 10/i.test(navigator.userAgent);
@@ -982,7 +982,7 @@ var game = {
 
         var path = name.replace(/\./g, '/') + '.js' + this._nocache;
         if (this.config.sourceFolder) path = this.config.sourceFolder + '/' + path;
-        
+
         if (typeof document === 'undefined') {
             require('../../' + path);
             this._scriptLoaded();
@@ -1041,7 +1041,7 @@ var game = {
                 }
             }
         }
-        
+
         if (typeof document === 'undefined') {
             this.onReady();
             return;
